@@ -13,9 +13,15 @@ const cadastrarUsuario = async (nome: string, email: string, senha: string) => {
         senha
     }).returning('*');
     return resultado;
-}
+};
+
+const buscarUsuarioId = async (id: string) => {
+    const resultdo = await knex<Usuario>('usuarios').where({ id: Number(id) }).first();
+    return resultdo;
+};
 
 export default {
     buscarTodosUsuarios,
-    cadastrarUsuario
+    cadastrarUsuario,
+    buscarUsuarioId
 };

@@ -5,6 +5,12 @@ const buscarTodosUsuarios = async () => {
     return resultado;
 };
 
+const cadastrarUsuario = async (nome: string, email: string, senha: string) => {
+    const resultado = await usuarioModel.cadastrarUsuario(nome, email, senha);
+    return resultado;
+}
+
 export default {
-    buscarTodosUsuarios
+    buscarTodosUsuarios,
+    cadastrarUsuario
 };

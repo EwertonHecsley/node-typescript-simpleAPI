@@ -1,3 +1,5 @@
+import { BadRequest } from '../middleware/ClassesErrors/BadRequest';
+import { NotFound } from '../middleware/ClassesErrors/NotFound';
 import { UsuarioFormatado } from '../model/type.usuario';
 import usuarioModel from '../model/usuario.model';
 
@@ -12,6 +14,7 @@ const buscarTodosUsuarios = async () => {
 };
 
 const cadastrarUsuario = async (nome: string, email: string, senha: string) => {
+    if (!nome || !email || !senha) throw new BadRequest('Todos os campos são obrigatórios.')
     const resultado = await usuarioModel.cadastrarUsuario(nome, email, senha);
     const { senha: _, ...novoResultado } = resultado[0];
     return novoResultado;
@@ -19,7 +22,7 @@ const cadastrarUsuario = async (nome: string, email: string, senha: string) => {
 
 const buscarUsuarioId = async (id: string) => {
     const resultado = await usuarioModel.buscarUsuarioId(id);
-    if (!resultado) throw new Error('Usuário não encontrado');
+    if (!resultado) throw new NotFound('Usuário não encontrado');
     const { senha: _, ...novoResultado } = resultado
     return novoResultado;
 };
